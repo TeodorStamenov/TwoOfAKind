@@ -16,7 +16,7 @@ public class AddButtons : MonoBehaviour
         {
             GameObject button = Instantiate(btn);
             button.name = "" + i;
-            button.transform.SetParent(field, false); 
+            button.transform.SetParent(field, false);
         }
     }
 }

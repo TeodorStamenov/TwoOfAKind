@@ -88,6 +88,7 @@ GameObject:
   - component: {fileID: 7894323695949223768}
   - component: {fileID: 5377971176824971750}
   - component: {fileID: 4164785627858313280}
+  - component: {fileID: 6338726523520031141}
   m_Layer: 5
   m_Name: FieldButton
   m_TagString: FieldButtonTag
@@ -198,3 +199,15 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!225 &6338726523520031141
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6465103314444415873}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
