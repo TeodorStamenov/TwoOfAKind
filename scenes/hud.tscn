@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://c5ye16saujda4"]
+
+[ext_resource type="Texture2D" uid="uid://043xamqehdxm" path="res://assets/ui/bubble/down.png" id="1_h0xgb"]
+[ext_resource type="Texture2D" uid="uid://doqrdb2sweqp5" path="res://assets/ui/bubble/up.png" id="2_tgakt"]
+
+[node name="HUD" type="Control"]
+layout_mode = 3
+anchor_right = 1.0
+anchor_bottom = 0.125
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="down" type="Sprite2D" parent="."]
+position = Vector2(288, 32)
+scale = Vector2(0.375, 0.275862)
+texture = ExtResource("1_h0xgb")
+
+[node name="up" type="Sprite2D" parent="."]
+position = Vector2(288, 96)
+scale = Vector2(0.375, 0.326005)
+texture = ExtResource("2_tgakt")

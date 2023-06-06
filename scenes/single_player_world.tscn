@@ -1,0 +1,35 @@
+[gd_scene load_steps=6 format=3 uid="uid://7pfetbds0whd"]
+
+[ext_resource type="PackedScene" uid="uid://jewrbcxc5fcj" path="res://scenes/board.tscn" id="1_c056q"]
+[ext_resource type="Script" path="res://scripts/single_player_world.gd" id="1_kuxxc"]
+[ext_resource type="PackedScene" uid="uid://br46c1wtpw5q" path="res://scenes/timer.tscn" id="2_v0til"]
+[ext_resource type="Texture2D" uid="uid://1gwv0ol4geqw" path="res://assets/ui/bubble/bg.png" id="4_ltxtu"]
+[ext_resource type="PackedScene" uid="uid://c5ye16saujda4" path="res://scenes/hud.tscn" id="5_u0c6o"]
+
+[node name="SinglePlayerWorld" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_kuxxc")
+
+[node name="Background" type="Sprite2D" parent="."]
+scale = Vector2(0.375, 0.5)
+texture = ExtResource("4_ltxtu")
+centered = false
+
+[node name="Timer" parent="." instance=ExtResource("2_v0til")]
+layout_mode = 1
+anchor_top = 0.226562
+anchor_bottom = 0.289062
+
+[node name="Board" parent="." instance=ExtResource("1_c056q")]
+layout_mode = 1
+anchor_top = 0.3125
+anchor_bottom = 0.687875
+metadata/_edit_use_anchors_ = true
+
+[node name="HUD" parent="." instance=ExtResource("5_u0c6o")]
+layout_mode = 1
