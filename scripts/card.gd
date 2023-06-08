@@ -16,7 +16,7 @@ func _process(delta):
 	pass
 
 func _on_touch_screen_button_pressed():
-	$Flip.play("card_flip")
+	$CardAnimations.play("card_flip")
 	pass # Replace with function body.
 
 

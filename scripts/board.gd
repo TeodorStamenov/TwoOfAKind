@@ -60,8 +60,8 @@ func _on_timeout_complete():
 		first_card.get_node("Back").hide()
 		second_card.get_node("Back").hide()
 	else:
-		first_card.get_node("Flip").play("card_hide")
-		second_card.get_node("Flip").play("card_hide")
+		first_card.get_node("CardAnimations").play("card_hide")
+		second_card.get_node("CardAnimations").play("card_hide")
 	
 	# reset cards
 	first_card = null
