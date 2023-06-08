@@ -15,5 +15,7 @@ func run_highlight_effect():
 
 
 func _on_highlight_timer_timeout():
-	run_highlight_effect()
+	var isCardFlipped = get_node("Face").z_index == 0
+	if not isCardFlipped:
+		run_highlight_effect()
 	pass # Replace with function body.
