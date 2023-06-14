@@ -26,7 +26,8 @@ func _input(event):
 
 
 func _setup_cards():
-	var card_instance = preload("res://scenes/card.tscn").instantiate()
+	var Card = preload("res://scenes/card.tscn")
+	var card_instance = Card.instantiate()
 	
 	var all_indexes = range(1,20)
 	all_indexes.shuffle()

@@ -1,6 +1,6 @@
 extends TextureRect
 
-@onready var fill = 0
+@onready var points = 100
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -13,14 +13,13 @@ func _process(delta):
 	pass
 	
 
-func fillStar(value):
+func fill_star(value):
 	var tween : Tween
 	tween = create_tween()
 	tween.parallel().tween_property($StarForeground, "size:x", value, 0.5).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_OUT)
 	pass
-
-
-func _on_timer_timeout():
-	fill += 60
-	fillStar(fill)
-	pass # Replace with function body.
+	
+#func _input(event):
+#	if event is InputEventMouseButton and event.is_pressed():
+#		fill_star(points)
+#		points += 100
