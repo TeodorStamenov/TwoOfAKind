@@ -18,8 +18,4 @@ func fill_star(value):
 	tween = create_tween()
 	tween.parallel().tween_property($StarForeground, "size:x", value, 0.5).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_OUT)
 	pass
-	
-#func _input(event):
-#	if event is InputEventMouseButton and event.is_pressed():
-#		fill_star(points)
-#		points += 100
+

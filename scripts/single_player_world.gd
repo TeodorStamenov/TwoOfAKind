@@ -29,17 +29,12 @@ func _input(event):
 		
 		var tween : Tween
 		tween = create_tween()
-#		tween.tween_property(star, "position", $HUD/Star1.position, 1)
-		tween.tween_property(star, "position", Vector2(0, 0), 1)
-		var star_id = star.get_index()
-		tween.finished.connect(_star_fly_end(star_id))
+		tween.tween_property(star, "position", $HUD/Star1.position, 1)
+		tween.finished.connect(_star_fly_end.bind(star))
 	pass
 	
-func _star_fly_end(node_id):
-	var node = get_child(node_id)
-	remove_child(node)
+func _star_fly_end(star):
 	$HUD/Star1.fill_star(points)
-	$HUD/Star2.fill_star(points)
-	$HUD/Star3.fill_star(points)
+	remove_child(star)
 	points += 100
 	pass
