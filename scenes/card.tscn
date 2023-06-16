@@ -1,14 +1,13 @@
-[gd_scene load_steps=15 format=3 uid="uid://b7ujvs88d62bt"]
+[gd_scene load_steps=17 format=3 uid="uid://b7ujvs88d62bt"]
 
 [ext_resource type="Script" path="res://scripts/card.gd" id="1_jm52i"]
-[ext_resource type="Shader" path="res://shaders/card.gdshader" id="1_l0lhk"]
+[ext_resource type="Shader" path="res://shaders/card_bgr.gdshader" id="2_te2b7"]
 [ext_resource type="Texture2D" uid="uid://dgafvnfa5ia26" path="res://assets/ui/deck/deck_2.png" id="2_vhocf"]
 [ext_resource type="Texture2D" uid="uid://carkk4t7qdagx" path="res://assets/landscapes/index2.jpg" id="3_n2ol5"]
 [ext_resource type="Script" path="res://scripts/card_back.gd" id="4_8cvqy"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_kx8j4"]
-resource_local_to_scene = true
-shader = ExtResource("1_l0lhk")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_g8aop"]
+shader = ExtResource("2_te2b7")
 shader_parameter/shine_color = Color(1, 1, 1, 0.196078)
 shader_parameter/shine_progress = 0.0
 shader_parameter/shine_size = 0.01
@@ -18,9 +17,21 @@ shader_parameter/shine_angle = 45.0
 
 [sub_resource type="Animation" id="Animation_kskvd"]
 length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Back/Face:material:shader_parameter/outline_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.917647, 0.0156863, 0.494118, 1)]
+}
 
 [sub_resource type="Animation" id="Animation_oc23s"]
-resource_name = "card_flip"
+resource_name = "flip"
 length = 0.2
 step = 0.05
 tracks/0/type = "value"
@@ -49,7 +60,7 @@ tracks/1/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_jmsco"]
-resource_name = "card_hide"
+resource_name = "hide"
 length = 0.2
 step = 0.05
 tracks/0/type = "value"
@@ -77,12 +88,59 @@ tracks/1/keys = {
 "values": [0, -1]
 }
 
+[sub_resource type="Animation" id="Animation_q36u2"]
+resource_name = "outline"
+length = 1.2
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Back/Face:material:shader_parameter/outline_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.6, 1.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(0.917647, 0.0156863, 0.494118, 0.862745), Color(0.988235, 0.905882, 0, 0.784314), Color(0, 0.960784, 1, 0.862745)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Back/Face:material:shader_parameter/outline_color_2")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.6, 1.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(0, 0.960784, 1, 0.862745), Color(0.988235, 0.905882, 0, 0.784314), Color(0.917647, 0.0156863, 0.494118, 0.862745)]
+}
+
+[sub_resource type="Animation" id="Animation_m6gwo"]
+resource_name = "vanish"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Back:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_4fqqq"]
 resource_local_to_scene = true
 _data = {
 "RESET": SubResource("Animation_kskvd"),
-"card_flip": SubResource("Animation_oc23s"),
-"card_hide": SubResource("Animation_jmsco")
+"flip": SubResource("Animation_oc23s"),
+"hide": SubResource("Animation_jmsco"),
+"outline": SubResource("Animation_q36u2"),
+"vanish": SubResource("Animation_m6gwo")
 }
 
 [sub_resource type="Animation" id="Animation_hg8dn"]
@@ -171,7 +229,7 @@ script = ExtResource("1_jm52i")
 metadata/_edit_use_anchors_ = true
 
 [node name="Back" type="TextureRect" parent="."]
-material = SubResource("ShaderMaterial_kx8j4")
+material = SubResource("ShaderMaterial_g8aop")
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -183,7 +241,6 @@ script = ExtResource("4_8cvqy")
 metadata/_edit_use_anchors_ = true
 
 [node name="Face" type="Sprite2D" parent="Back"]
-z_index = -1
 position = Vector2(56.5, 54)
 scale = Vector2(1.012, 1)
 texture = ExtResource("3_n2ol5")
@@ -199,7 +256,7 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_te8u3")
 flat = true
 metadata/_edit_use_anchors_ = true
 
-[node name="CardFlipAnimations" type="AnimationPlayer" parent="."]
+[node name="Animations" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_4fqqq")
 }
@@ -209,11 +266,11 @@ libraries = {
 "": SubResource("AnimationLibrary_0u1y2")
 }
 
-[node name="HighlightTimer" type="Timer" parent="."]
+[node name="HighlightTimer" type="Timer" parent="CardHighlightAnimation"]
 wait_time = 4.2
 autostart = true
 
 [connection signal="pressed" from="Button" to="." method="_on_touch_screen_button_pressed"]
-[connection signal="animation_finished" from="CardFlipAnimations" to="." method="_on_flip_animation_finished"]
-[connection signal="animation_started" from="CardFlipAnimations" to="." method="_on_flip_animation_started"]
-[connection signal="timeout" from="HighlightTimer" to="Back" method="_on_highlight_timer_timeout"]
+[connection signal="animation_finished" from="Animations" to="." method="_on_animation_finished"]
+[connection signal="animation_started" from="Animations" to="." method="_on_animation_started"]
+[connection signal="timeout" from="CardHighlightAnimation/HighlightTimer" to="Back" method="_on_highlight_timer_timeout"]

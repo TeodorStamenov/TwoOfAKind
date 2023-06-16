@@ -1,13 +1,14 @@
 extends Control
 class_name Card
 
-signal on_flip_started_signal(value)
-signal on_flip_finish_signal
+@onready var Explosion = preload("res://particles/explosion.tscn")
+
+signal flip_started_signal(value)
+signal flip_finish_signal
 
 @export var index = 0
 @onready var face = $Back/Face
-@onready var flipAnimation = $CardFlipAnimations
-
+@onready var flipAnimation = $Animations
 @onready var initial_material = $Back.material
 
 # Called when the node enters the scene tree for the first time.
@@ -19,22 +20,31 @@ func _process(delta):
 	pass
 
 func _on_touch_screen_button_pressed():
-	flipAnimation.play("card_flip")
+	flipAnimation.play("flip")
 	pass # Replace with function body.
 
 
-func _on_flip_animation_started(anim_name):
-	if anim_name == "card_flip":
+func _on_animation_started(anim_name):
+	if anim_name == "flip":
 		$Button.visible = false
 		$Back.material = null
-		emit_signal("on_flip_started_signal", self)
+		emit_signal("flip_started_signal", self)
 	pass # Replace with function body.
 
 
-func _on_flip_animation_finished(anim_name):
-	if anim_name == "card_flip":
-		emit_signal("on_flip_finish_signal")
-	elif anim_name == "card_hide":
+func _on_animation_finished(anim_name):
+	if anim_name == "flip":
+		flipAnimation.play("outline")
+		emit_signal("flip_finish_signal")
+	elif anim_name == "hide":
 		$Button.visible = true
 		$Back.material = initial_material
 	pass # Replace with function body.
+
+
+func start_explosion():
+	var explosion = Explosion.instantiate() as CPUParticles2D
+	add_child(explosion)
+	explosion.position = face.position
+	explosion.emitting = true
+	pass

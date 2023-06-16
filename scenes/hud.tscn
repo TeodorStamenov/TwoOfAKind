@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://c5ye16saujda4"]
+[gd_scene load_steps=6 format=3 uid="uid://c5ye16saujda4"]
 
 [ext_resource type="Texture2D" uid="uid://043xamqehdxm" path="res://assets/ui/bubble/down.png" id="1_h0xgb"]
+[ext_resource type="Script" path="res://scripts/hud.gd" id="1_iqy4n"]
 [ext_resource type="Texture2D" uid="uid://doqrdb2sweqp5" path="res://assets/ui/bubble/up.png" id="2_tgakt"]
 [ext_resource type="Texture2D" uid="uid://cp50hi2162n3i" path="res://assets/ui/level_select/level_holder_transperant.png" id="3_2ihvc"]
 [ext_resource type="PackedScene" uid="uid://b62x6jpxqjqrx" path="res://scenes/star.tscn" id="4_ef8cj"]
@@ -11,6 +12,7 @@ anchor_right = 1.0
 anchor_bottom = 0.125
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_iqy4n")
 metadata/_edit_use_anchors_ = true
 
 [node name="Down" type="Sprite2D" parent="."]

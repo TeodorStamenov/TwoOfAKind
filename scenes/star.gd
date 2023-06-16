@@ -1,10 +1,10 @@
 extends TextureRect
 
 @onready var points = 100
+@onready var max_x = $StarForeground.size.x
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	$StarForeground.size.x = 0;
 	pass # Replace with function body.
 
 

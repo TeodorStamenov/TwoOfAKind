@@ -1,15 +1,14 @@
 extends Control
 
+signal match_pairs_signal
+
 var first_card = null
 var second_card = null
 
-var delay = null
-const DELAY_TIME = 0.180
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	_setup_cards()
-	_setup_delay()
 	pass
 
 
@@ -41,34 +40,10 @@ func _setup_cards():
 		$Cards.add_child(card)
 		card.face.set_texture(load("res://assets/landscapes/index" + str(idx) + ".jpg"))
 		card.index = idx
-		card.on_flip_started_signal.connect(_on_card_flip_started)
-		card.on_flip_finish_signal.connect(_on_card_flip_finish)
+		card.flip_started_signal.connect(_on_card_flip_started)
+		card.flip_finish_signal.connect(_on_card_flip_finish)
 	pass # Replace with function body.
-
-
-func _setup_delay():
-	delay = Timer.new()
-	delay.set_one_shot(true)
-	delay.set_wait_time(DELAY_TIME)
-	delay.timeout.connect(_on_timeout_complete)
-	self.add_child(delay)
-	pass
-
-
-func _on_timeout_complete():
-	if first_card.index == second_card.index:
-		print("Congrats")
-		first_card.get_node("Back").hide()
-		second_card.get_node("Back").hide()
-	else:
-		first_card.flipAnimation.play("card_hide")
-		second_card.flipAnimation.play("card_hide")
 	
-	# reset cards
-	first_card = null
-	second_card = null
-	pass
-
 
 func _on_card_flip_started(card):
 	if first_card == null:
@@ -76,9 +51,34 @@ func _on_card_flip_started(card):
 	elif second_card == null:
 		second_card = card
 	pass
-	
+
 
 func _on_card_flip_finish():
 	if first_card != null and second_card != null:
-		delay.start()
+		$HoldCardsOpen.start()
 	pass
+
+
+func _on_hold_cards_open_timeout():
+	if first_card.index == second_card.index:
+		emit_signal("match_pairs_signal")
+	else:
+		first_card.flipAnimation.play("hide")
+		second_card.flipAnimation.play("hide")
+		reset_cards()
+	pass
+
+func start_cards_vanish():
+	first_card.flipAnimation.play("vanish")
+	second_card.flipAnimation.play("vanish")
+	pass
+	
+
+func start_cards_explosion():
+	first_card.start_explosion()
+	second_card.start_explosion()
+	pass
+
+func reset_cards():
+	first_card = null
+	second_card = null

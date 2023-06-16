@@ -33,3 +33,9 @@ size_flags_vertical = 3
 columns = 4
 metadata/_edit_group_ = true
 metadata/_edit_use_anchors_ = true
+
+[node name="HoldCardsOpen" type="Timer" parent="."]
+wait_time = 0.6
+one_shot = true
+
+[connection signal="timeout" from="HoldCardsOpen" to="." method="_on_hold_cards_open_timeout"]
