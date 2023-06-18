@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://b7ujvs88d62bt"]
+[gd_scene load_steps=15 format=3 uid="uid://b7ujvs88d62bt"]
 
 [ext_resource type="Script" path="res://scripts/card.gd" id="1_jm52i"]
 [ext_resource type="Shader" path="res://shaders/card_bgr.gdshader" id="2_te2b7"]
@@ -88,35 +88,6 @@ tracks/1/keys = {
 "values": [0, -1]
 }
 
-[sub_resource type="Animation" id="Animation_q36u2"]
-resource_name = "outline"
-length = 1.2
-loop_mode = 2
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Back/Face:material:shader_parameter/outline_color")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.6, 1.2),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Color(0.917647, 0.0156863, 0.494118, 0.862745), Color(0.988235, 0.905882, 0, 0.784314), Color(0, 0.960784, 1, 0.862745)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Back/Face:material:shader_parameter/outline_color_2")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.6, 1.2),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Color(0, 0.960784, 1, 0.862745), Color(0.988235, 0.905882, 0, 0.784314), Color(0.917647, 0.0156863, 0.494118, 0.862745)]
-}
-
 [sub_resource type="Animation" id="Animation_m6gwo"]
 resource_name = "vanish"
 length = 0.2
@@ -139,35 +110,7 @@ _data = {
 "RESET": SubResource("Animation_kskvd"),
 "flip": SubResource("Animation_oc23s"),
 "hide": SubResource("Animation_jmsco"),
-"outline": SubResource("Animation_q36u2"),
 "vanish": SubResource("Animation_m6gwo")
-}
-
-[sub_resource type="Animation" id="Animation_hg8dn"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Back:material:shader_parameter/shine_size")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.01]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Back:material:shader_parameter/shine_color")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0.196078)]
 }
 
 [sub_resource type="Animation" id="Animation_u6r20"]
@@ -211,7 +154,6 @@ tracks/2/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_0u1y2"]
 _data = {
-"RESET": SubResource("Animation_hg8dn"),
 "card_highlight": SubResource("Animation_u6r20")
 }
 
@@ -241,6 +183,7 @@ script = ExtResource("4_8cvqy")
 metadata/_edit_use_anchors_ = true
 
 [node name="Face" type="Sprite2D" parent="Back"]
+z_index = -1
 position = Vector2(56.5, 54)
 scale = Vector2(1.012, 1)
 texture = ExtResource("3_n2ol5")

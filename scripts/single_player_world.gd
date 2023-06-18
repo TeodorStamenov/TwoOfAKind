@@ -1,8 +1,6 @@
 extends Control
 
 @onready var Star = preload("res://scenes/star.tscn")
-@onready var Ghost = preload("res://particles/ghost.tscn")
-@onready var FlyStar = preload("res://scenes/fly_star.tscn")
 
 const TIMER_SECONDS = 60
 @onready var points = 100
@@ -35,15 +33,17 @@ func _on_board_match_pairs():
 	$Board.start_cards_vanish()
 	$Board.start_cards_explosion()
 	
-	var first_star = FlyStar.instantiate()
+	var first_star = Star.instantiate()
 	add_child(first_star)
-	first_star.global_position = $Board.first_card.face.global_position
+	first_star.z_index = 1
+	first_star.global_position = $Board.first_card.face.global_position - first_star.pivot_offset
 	start_star_animation(first_star)
 	
-#	var second_star = FlyStar.instantiate()
-#	add_child(second_star)
-#	second_star.global_position = $Board.second_card.face.global_position - second_star.pivot_offset
-#	start_star_animation(second_star)
+	var second_star = Star.instantiate()
+	add_child(second_star)
+	second_star.z_index = 1
+	second_star.global_position = $Board.second_card.face.global_position - second_star.pivot_offset
+	start_star_animation(second_star)
 #
 	$Board.reset_cards()
 	pass
@@ -51,10 +51,12 @@ func _on_board_match_pairs():
 
 func start_star_animation(star):
 	var final_scale = star.scale
+	print(final_scale)
 	
-	var tween : Tween
-	tween = create_tween()
-	tween.parallel().tween_property(star, "scale", Vector2(final_scale), 2).from(Vector2(0, 0))
-	tween.parallel().tween_property(star, "modulate", Color(1,1,1,1), 2).from(Color(1,1,1,0))
-	tween.chain().tween_property(star, "position", $HUD/Star1.global_position, 4).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_IN)
+	var tween = create_tween()
+	tween.parallel().tween_property(star, "scale", Vector2(final_scale), 0.400).from(Vector2(0, 0))
+	tween.parallel().tween_property(star, "modulate", Color(1,1,1,1), 0.400).from(Color(1,1,1,0))
+	tween.chain().tween_callback(star.start_ghost)
+	tween.chain().tween_property(star, "position", $HUD/Star1.position, 0.800).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_IN)
+	tween.tween_callback(star.queue_free)
 	pass

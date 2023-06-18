@@ -34,7 +34,6 @@ func _on_animation_started(anim_name):
 
 func _on_animation_finished(anim_name):
 	if anim_name == "flip":
-		flipAnimation.play("outline")
 		emit_signal("flip_finish_signal")
 	elif anim_name == "hide":
 		$Button.visible = true
