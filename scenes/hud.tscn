@@ -38,10 +38,14 @@ metadata/_edit_use_anchors_ = true
 
 [node name="Star1" parent="." instance=ExtResource("4_ef8cj")]
 layout_mode = 1
-anchor_left = 0.411458
-anchor_top = 0.71875
-anchor_right = 0.488411
-anchor_bottom = 1.04336
+anchor_left = 0.817708
+anchor_top = 1.40625
+anchor_right = 0.894661
+anchor_bottom = 1.73086
+offset_left = -237.0
+offset_top = -92.0
+offset_right = 309.675
+offset_bottom = 422.3
 
 [node name="Star3" parent="." instance=ExtResource("4_ef8cj")]
 layout_mode = 1
