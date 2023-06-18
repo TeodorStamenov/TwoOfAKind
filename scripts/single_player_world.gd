@@ -23,9 +23,8 @@ func _on_timer_elapsed():
 	pass	
 	
 	
-func _star_fly_end(star):
+func _star_fly_end():
 	$HUD/Star1.fill_star(points)
-	remove_child(star)
 	points += 100
 	pass
 
@@ -57,6 +56,6 @@ func start_star_animation(star):
 	tween.parallel().tween_property(star, "scale", Vector2(final_scale), 0.400).from(Vector2(0, 0))
 	tween.parallel().tween_property(star, "modulate", Color(1,1,1,1), 0.400).from(Color(1,1,1,0))
 	tween.chain().tween_callback(star.start_ghost)
-	tween.chain().tween_property(star, "position", $HUD/Star1.position, 0.800).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_IN)
+	tween.chain().tween_property(star, "position", $HUD/Star1.position, 0.800).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_IN).finished.connect(_star_fly_end)
 	tween.tween_callback(star.queue_free)
 	pass
