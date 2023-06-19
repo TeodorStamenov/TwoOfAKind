@@ -21,7 +21,7 @@ func _process(delta):
 
 func _on_touch_screen_button_pressed():
 	flipAnimation.play("flip")
-	pass # Replace with function body.
+	pass
 
 
 func _on_animation_started(anim_name):
@@ -29,7 +29,7 @@ func _on_animation_started(anim_name):
 		$Button.visible = false
 		$Back.material = null
 		emit_signal("flip_started_signal", self)
-	pass # Replace with function body.
+	pass
 
 
 func _on_animation_finished(anim_name):
@@ -38,7 +38,7 @@ func _on_animation_finished(anim_name):
 	elif anim_name == "hide":
 		$Button.visible = true
 		$Back.material = initial_material
-	pass # Replace with function body.
+	pass
 
 
 func start_explosion():

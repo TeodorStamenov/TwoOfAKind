@@ -5,7 +5,6 @@ signal match_pairs_signal
 var first_card = null
 var second_card = null
 
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	_setup_cards()
@@ -18,7 +17,7 @@ func _process(delta):
 
 
 func _input(event):
-	if event is InputEventMouseButton:
+	if event is InputEventMouseButton and event.pressed:
 		if first_card != null and second_card != null:
 			event.pressed = false
 	pass
@@ -42,7 +41,7 @@ func _setup_cards():
 		card.index = idx
 		card.flip_started_signal.connect(_on_card_flip_started)
 		card.flip_finish_signal.connect(_on_card_flip_finish)
-	pass # Replace with function body.
+	pass
 	
 
 func _on_card_flip_started(card):
@@ -63,22 +62,32 @@ func _on_hold_cards_open_timeout():
 	if first_card.index == second_card.index:
 		emit_signal("match_pairs_signal")
 	else:
-		first_card.flipAnimation.play("hide")
-		second_card.flipAnimation.play("hide")
+		hide_cards()
 		reset_cards()
 	pass
+
 
 func start_cards_vanish():
 	first_card.flipAnimation.play("vanish")
 	second_card.flipAnimation.play("vanish")
 	pass
-	
+
 
 func start_cards_explosion():
 	first_card.start_explosion()
 	second_card.start_explosion()
 	pass
 
+
 func reset_cards():
 	first_card = null
 	second_card = null
+	pass
+
+
+func hide_cards():
+	if first_card != null:
+		first_card.flipAnimation.play("hide")
+	if second_card != null:
+		second_card.flipAnimation.play("hide")
+	pass
