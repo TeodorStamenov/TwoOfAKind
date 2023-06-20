@@ -20,12 +20,17 @@ func fill(value):
 	pass
 	
 
+func fill_extend(value):
+	current_points += value
+	fill(current_points)
+	pass
+	
 
 func take_hit(value):
 	current_points += value
 	var points_left = 0
 	if current_points > max_points:
-		points_left = max_points - current_points
+		points_left = current_points - max_points
 		current_points = max_points
 		
 	shake()

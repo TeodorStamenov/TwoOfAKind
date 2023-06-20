@@ -69,8 +69,21 @@ func start_star_animation(star, end_pos):
 
 
 func _star_fly_end():
+	print("---start---")
+	print("before calc star_idx: ", current_star_idx)
+	print("before calc target_star_fill_amount: ", target_star.current_points)
 	calculate_target_star()
+	print("calculate")
+	print("after calc star_idx: ", current_star_idx)
 	var points_left = target_star.take_hit(points)
-	if points_left > 0:
-		stars[current_star_idx+1].fill(points_left)
+	print("after calc target_star_fill_amount: ", target_star.current_points)
+	if points_left > 0 and current_star_idx < (stars.size() - 1):
+		stars[current_star_idx+1].fill_extend(points_left)
+	
+	var idx = 0
+	for s in stars:
+		print("star_idx: ", idx)
+		print(s.current_points)
+		idx += 1
+	print("---end---")
 	pass
