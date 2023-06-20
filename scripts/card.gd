@@ -1,10 +1,10 @@
 extends Control
 class_name Card
 
-@onready var Explosion = preload("res://particles/explosion.tscn")
-
 signal flip_started_signal(value)
 signal flip_finish_signal
+
+@onready var Explosion = preload("res://particles/explosion.tscn")
 
 @export var index = 0
 @onready var face = $Back/Face

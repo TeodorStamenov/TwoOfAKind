@@ -1,88 +1,36 @@
-[gd_scene load_steps=3 format=3 uid="uid://b62x6jpxqjqrx"]
+[gd_scene load_steps=4 format=3 uid="uid://cmmoe6evvll34"]
 
-[ext_resource type="Texture2D" uid="uid://dmb8gpiglx2gi" path="res://assets/ui/star/star.png" id="2_jmrhk"]
+[ext_resource type="Script" path="res://scripts/star.gd" id="1_in4ce"]
+[ext_resource type="Texture2D" uid="uid://dmb8gpiglx2gi" path="res://assets/ui/star/star.png" id="1_xvxdo"]
 
-[sub_resource type="GDScript" id="GDScript_3injq"]
-script/source = "extends TextureRect
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vlx1u"]
+size = Vector2(30, 45)
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
+[node name="Star" type="Area2D"]
+script = ExtResource("1_in4ce")
 
+[node name="Background" type="Sprite2D" parent="."]
+modulate = Color(0.490196, 0.490196, 0.490196, 1)
+scale = Vector2(0.08, 0.08)
+texture = ExtResource("1_xvxdo")
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-	
+[node name="ForegroundCtrl" type="Control" parent="."]
+clip_contents = true
+layout_mode = 3
+anchors_preset = 0
+offset_left = -24.0
+offset_top = -22.0
+offset_right = 24.0
+offset_bottom = 22.0
 
-func take_hit(value):
-	var tween_shake = create_tween()
-	tween_shake.tween_property(self, \"position:x\", self.position.x - 2, 0.05)
-	tween_shake.tween_property(self, \"position:x\", self.position.x + 2, 0.05)
-	tween_shake.tween_property(self, \"position:x\", self.position.x - 1.5, 0.05)
-	tween_shake.tween_property(self, \"position:x\", self.position.x + 1.5, 0.05)
-	tween_shake.tween_property(self, \"position:x\", self.position.x - 1, 0.05)
-	tween_shake.tween_property(self, \"position:x\", self.position.x + 1, 0.05)
-	tween_shake.tween_property(self, \"position:x\", self.position.x - 0.5, 0.05)
-	tween_shake.tween_property(self, \"position:x\", self.position.x + 0.5, 0.05)
-	tween_shake.tween_property(self, \"position:x\", self.position.x, 0.05)
-	
-	var tween_fill = create_tween()
-	tween_fill.tween_property($StarForeground, \"size:x\", value, 0.5).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_OUT)
-	pass
+[node name="Foreground" type="Sprite2D" parent="ForegroundCtrl"]
+position = Vector2(24, 22)
+scale = Vector2(0.08, 0.08)
+texture = ExtResource("1_xvxdo")
 
-
-func start_ghost():
-	$GhostTimer.start()
-
-func _on_ghost_timer_timeout():
-	var ghost_star = self.duplicate()
-	get_parent().add_child(ghost_star)
-	ghost_star.z_index = 0
-	ghost_star.scale = Vector2(0.06, 0.06)
-	
-	var tween = get_parent().create_tween()
-	tween.parallel().tween_property(ghost_star, \"modulate\", Color(1,1,1,0), 1)
-	tween.parallel().tween_property(ghost_star, \"scale\", Vector2(0.0, 0.0), 1)
-	tween.tween_callback(ghost_star.queue_free)
-	pass
-"
-
-[node name="StarBackground" type="TextureRect"]
-self_modulate = Color(0.478431, 0.478431, 0.478431, 1)
-anchors_preset = -1
-anchor_left = 0.474545
-anchor_top = 0.251123
-anchor_right = 0.551498
-anchor_bottom = 0.291846
-offset_left = -275.338
-offset_top = -257.15
-offset_right = 271.336
-offset_bottom = 257.15
-scale = Vector2(0.075, 0.075)
-pivot_offset = Vector2(295.5, 278)
-size_flags_horizontal = 4
-size_flags_vertical = 4
-texture = ExtResource("2_jmrhk")
-expand_mode = 1
-stretch_mode = 1
-script = SubResource("GDScript_3injq")
-metadata/_edit_use_anchors_ = true
-
-[node name="StarForeground" type="TextureRect" parent="."]
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 1.0
-anchor_bottom = 1.00359
-offset_right = 0.00012207
-offset_bottom = -1.9964
-grow_horizontal = 2
-grow_vertical = 2
-pivot_offset = Vector2(295.5, 278)
-texture = ExtResource("2_jmrhk")
-expand_mode = 1
-stretch_mode = 1
-metadata/_edit_use_anchors_ = true
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_vlx1u")
 
 [node name="GhostTimer" type="Timer" parent="."]
 wait_time = 0.1

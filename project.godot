@@ -11,16 +11,18 @@ config_version=5
 [application]
 
 config/name="TwoOfAKind"
-run/main_scene="res://scenes/single_player_world.tscn"
+run/main_scene="res://scenes/world.tscn"
 config/features=PackedStringArray("4.0", "Mobile")
 config/icon="res://icon.svg"
+
+[autoload]
+
+DampedOscillator="*res://addons/DampedOscillator/scripts/damped_oscillator.tscn"
 
 [display]
 
 window/size/viewport_width=576
 window/size/viewport_height=1024
-window/size/window_width_override=288
-window/size/window_height_override=512
 window/stretch/mode="canvas_items"
 window/stretch/aspect="keep_width"
 window/handheld/orientation=1
