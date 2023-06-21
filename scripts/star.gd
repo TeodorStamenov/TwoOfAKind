@@ -46,8 +46,9 @@ func start_ghost():
 func _on_ghost_timer_timeout():
 	var ghost_star = self.duplicate()
 	get_parent().add_child(ghost_star)
+	ghost_star.get_node("CollisionShape2D").set_disabled(true)
 	ghost_star.z_index = 0
-	ghost_star.scale = Vector2(0.06, 0.06)
+	ghost_star.scale = Vector2(0.2, 0.2)
 	
 	var tween = get_parent().create_tween()
 	tween.parallel().tween_property(ghost_star, "modulate:a", 0, 1)
@@ -57,5 +58,5 @@ func _on_ghost_timer_timeout():
 
 
 func _on_area_entered(area):
-	print("collide")
+	$GhostTimer.stop()
 	pass

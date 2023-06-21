@@ -27,7 +27,7 @@ func _on_timer_elapsed():
 	pass
 	
 	
-func calculate_target_star(): 
+func calculate_target_star():
 	if target_star.current_points >= target_star.max_points:
 		current_star_idx += 1
 		if current_star_idx < stars.size():
@@ -36,11 +36,13 @@ func calculate_target_star():
 
 
 func _on_board_match_pairs():
+	calculate_target_star()
+	
 	$Board.start_cards_vanish()
 	$Board.start_cards_explosion()
 	
 	flying_star($Board.first_card.face.global_position, target_star.position, 1)
-	flying_star($Board.second_card.face.global_position, target_star.position, 2)
+#	flying_star($Board.second_card.face.global_position, target_star.position, 2)
 
 	$Board.reset_cards()
 	pass
@@ -63,27 +65,13 @@ func start_star_animation(star, end_pos):
 	tween.parallel().tween_property(star, "scale", Vector2(final_scale), 0.400).from(Vector2(0, 0))
 	tween.parallel().tween_property(star, "modulate", Color(1,1,1,1), 0.400).from(Color(1,1,1,0))
 	tween.chain().tween_callback(star.start_ghost)
-	tween.chain().tween_property(star, "position", end_pos, 3).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_IN).finished.connect(_star_fly_end)
+	tween.chain().tween_property(star, "position", end_pos, 0.800).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_IN).finished.connect(_star_fly_end)
 	tween.tween_callback(star.queue_free)
 	pass
 
 
 func _star_fly_end():
-	print("---start---")
-	print("before calc star_idx: ", current_star_idx)
-	print("before calc target_star_fill_amount: ", target_star.current_points)
-	calculate_target_star()
-	print("calculate")
-	print("after calc star_idx: ", current_star_idx)
 	var points_left = target_star.take_hit(points)
-	print("after calc target_star_fill_amount: ", target_star.current_points)
 	if points_left > 0 and current_star_idx < (stars.size() - 1):
 		stars[current_star_idx+1].fill_extend(points_left)
-	
-	var idx = 0
-	for s in stars:
-		print("star_idx: ", idx)
-		print(s.current_points)
-		idx += 1
-	print("---end---")
 	pass
