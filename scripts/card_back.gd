@@ -10,7 +10,7 @@ func _process(delta):
 	pass
 
 func run_highlight_effect():
-	%CardHighlightAnimation.play("card_highlight")
+#	%CardHighlightAnimation.play("card_highlight")
 	pass
 
 func _on_highlight_timer_timeout():
