@@ -189,6 +189,7 @@ libraries = {
 }
 
 [node name="CardHighlightAnimation" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
 reset_on_save = false
 libraries = {
 "": SubResource("AnimationLibrary_0u1y2")

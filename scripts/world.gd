@@ -42,7 +42,7 @@ func _on_board_match_pairs():
 	$Board.start_cards_explosion()
 	
 	flying_star($Board.first_card.face.global_position, target_star.position, 1)
-#	flying_star($Board.second_card.face.global_position, target_star.position, 2)
+	flying_star($Board.second_card.face.global_position, target_star.position, 2)
 
 	$Board.reset_cards()
 	pass

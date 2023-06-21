@@ -51,8 +51,8 @@ func _on_ghost_timer_timeout():
 	ghost_star.scale = Vector2(0.2, 0.2)
 	
 	var tween = get_parent().create_tween()
-	tween.parallel().tween_property(ghost_star, "modulate:a", 0, 1)
-	tween.parallel().tween_property(ghost_star, "scale", Vector2(0.0, 0.0), 1)
+	tween.parallel().tween_property(ghost_star, "modulate:a", 0, 2)
+	tween.parallel().tween_property(ghost_star, "scale", Vector2(0.0, 0.0), 2)
 	tween.tween_callback(ghost_star.queue_free)
 	pass
 

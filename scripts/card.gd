@@ -5,6 +5,7 @@ signal flip_started_signal(value)
 signal flip_finish_signal
 
 @onready var Explosion = preload("res://particles/explosion.tscn")
+@onready var card_highlight_animation = $CardHighlightAnimation
 
 @export var index = 0
 @onready var face = $Back/Face

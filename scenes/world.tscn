@@ -33,3 +33,11 @@ metadata/_edit_use_anchors_ = true
 
 [node name="HUD" parent="." instance=ExtResource("5_u0c6o")]
 layout_mode = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+layout_mode = 0
+offset_left = 255.0
+offset_top = 51.0
+offset_right = 342.0
+offset_bottom = 101.0
+text = "PENIS!"
