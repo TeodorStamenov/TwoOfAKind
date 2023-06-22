@@ -7,15 +7,15 @@ extends Control
 @onready var target_star = null
 @onready var current_star_idx = 0
 
-const TIMER_SECONDS = 60
+const TIMER_SECONDS = 3
 const NUMBER_OF_CARDS = 12
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$Board.match_pairs_signal.connect(_on_board_match_pairs)
-	$Timer.start_timer(TIMER_SECONDS)
-	$Timer.tween.finished.connect(_on_timer_elapsed)
+	$TimerScn.start_timer(TIMER_SECONDS)
+	$TimerScn.time_elapsed.connect(_on_timer_elapsed)
 	
 	target_star = stars[current_star_idx]
 	points = target_star.max_points / NUMBER_OF_CARDS + 15

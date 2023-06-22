@@ -1,19 +1,34 @@
 extends Control
 
-@onready var initial_x = $BarElapsed.size.x
-var tween : Tween
+signal time_elapsed
+
+@onready var time = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
 	pass
 
 
-func start_timer(seconds):
-	tween = create_tween()
-	tween.tween_property($BarElapsed, "size:x", 0, seconds).from(initial_x).set_ease(Tween.EASE_IN)
+func start_timer(value):
+	time = value
+	_format_time()
+	$Timer.start()
+	pass
+
+
+func _on_timer_timeout():
+	time = time - 1
+	
+	if time <= 0:
+		emit_signal("time_elapsed")
+		$Timer.stop()
+	
+	_format_time()
+	pass
+	
+	
+func _format_time():
+	var minutes = time / 60
+	var seconds = fmod(time, 60)
+	$TimerDigits.text = "%1d:%02d" % [minutes, seconds]
 	pass

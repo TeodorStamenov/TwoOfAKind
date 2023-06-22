@@ -29,7 +29,7 @@ window/handheld/orientation=1
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/BitmapFontMaker/plugin.cfg", "res://addons/DampedOscillator/plugin.cfg")
+enabled=PackedStringArray("res://addons/DampedOscillator/plugin.cfg")
 
 [rendering]
 

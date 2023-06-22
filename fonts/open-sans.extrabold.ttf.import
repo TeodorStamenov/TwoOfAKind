@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://bavai72s3vow"
-path="res://.godot/imported/ThaleahFat.ttf-04f42247f1d96b8e275a0a21d55054b8.fontdata"
+uid="uid://cxcq6jhjleygb"
+path="res://.godot/imported/open-sans.extrabold.ttf-79f3dfabe68724561e40cc99624c833e.fontdata"
 
 [deps]
 
-source_file="res://fonts/ThaleahFat.ttf"
-dest_files=["res://.godot/imported/ThaleahFat.ttf-04f42247f1d96b8e275a0a21d55054b8.fontdata"]
+source_file="res://fonts/open-sans.extrabold.ttf"
+dest_files=["res://.godot/imported/open-sans.extrabold.ttf-79f3dfabe68724561e40cc99624c833e.fontdata"]
 
 [params]
 
