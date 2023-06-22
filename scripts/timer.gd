@@ -30,5 +30,5 @@ func _on_timer_timeout():
 func _format_time():
 	var minutes = time / 60
 	var seconds = fmod(time, 60)
-	$TimerDigits.text = "%1d:%02d" % [minutes, seconds]
+	$TimerBgr/TimerDigits.text = "%1d:%02d" % [minutes, seconds]
 	pass

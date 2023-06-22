@@ -1,8 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://7pfetbds0whd"]
+[gd_scene load_steps=5 format=3 uid="uid://7pfetbds0whd"]
 
 [ext_resource type="PackedScene" uid="uid://jewrbcxc5fcj" path="res://scenes/board.tscn" id="1_c056q"]
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_yxx5v"]
-[ext_resource type="PackedScene" uid="uid://br46c1wtpw5q" path="res://scenes/timer.tscn" id="2_v0til"]
 [ext_resource type="Texture2D" uid="uid://1gwv0ol4geqw" path="res://assets/ui/bubble/bg.png" id="4_ltxtu"]
 [ext_resource type="PackedScene" uid="uid://c5ye16saujda4" path="res://scenes/hud.tscn" id="5_u0c6o"]
 
@@ -28,10 +27,3 @@ metadata/_edit_use_anchors_ = true
 
 [node name="HUD" parent="." instance=ExtResource("5_u0c6o")]
 layout_mode = 1
-
-[node name="TimerScn" parent="." instance=ExtResource("2_v0til")]
-layout_mode = 1
-offset_left = 36.0
-offset_top = 7.0
-offset_right = 36.0
-offset_bottom = 7.0

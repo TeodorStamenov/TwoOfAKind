@@ -7,15 +7,15 @@ extends Control
 @onready var target_star = null
 @onready var current_star_idx = 0
 
-const TIMER_SECONDS = 3
+const TIMER_SECONDS = 80
 const NUMBER_OF_CARDS = 12
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$Board.match_pairs_signal.connect(_on_board_match_pairs)
-	$TimerScn.start_timer(TIMER_SECONDS)
-	$TimerScn.time_elapsed.connect(_on_timer_elapsed)
+	$HUD/TimerScn.start_timer(TIMER_SECONDS)
+	$HUD/TimerScn.time_elapsed.connect(_on_timer_elapsed)
 	
 	target_star = stars[current_star_idx]
 	points = target_star.max_points / NUMBER_OF_CARDS + 15
@@ -52,7 +52,7 @@ func flying_star(start_pos, end_pos, mask):
 	var flying_star = Star.instantiate()
 	add_child(flying_star)
 	flying_star.set_collision_mask_value(mask, true)
-	flying_star.z_index = 1
+	flying_star.z_index = 2
 	flying_star.global_position = start_pos
 	start_star_animation(flying_star, end_pos)
 	pass
