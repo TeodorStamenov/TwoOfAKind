@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://jewrbcxc5fcj" path="res://scenes/board.tscn" id="1_c056q"]
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_yxx5v"]
-[ext_resource type="Texture2D" uid="uid://1gwv0ol4geqw" path="res://assets/ui/bubble/bg.png" id="4_ltxtu"]
+[ext_resource type="Texture2D" uid="uid://ckcqek5jommw2" path="res://assets/ui/backgrounds/background_4.jpg" id="2_2sxxx"]
 [ext_resource type="PackedScene" uid="uid://c5ye16saujda4" path="res://scenes/hud.tscn" id="5_u0c6o"]
 
 [node name="World" type="Control"]
@@ -14,10 +14,16 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_yxx5v")
 
-[node name="Background" type="Sprite2D" parent="."]
-scale = Vector2(0.375, 0.5)
-texture = ExtResource("4_ltxtu")
-centered = false
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.00099
+offset_bottom = -136.017
+scale = Vector2(1, 1.153)
+texture = ExtResource("2_2sxxx")
+expand_mode = 1
+metadata/_edit_use_anchors_ = true
 
 [node name="Board" parent="." instance=ExtResource("1_c056q")]
 layout_mode = 1
@@ -27,3 +33,9 @@ metadata/_edit_use_anchors_ = true
 
 [node name="HUD" parent="." instance=ExtResource("5_u0c6o")]
 layout_mode = 1
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

@@ -1,7 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://jewrbcxc5fcj"]
+[gd_scene load_steps=2 format=3 uid="uid://jewrbcxc5fcj"]
 
 [ext_resource type="Script" path="res://scripts/board.gd" id="1_oevn7"]
-[ext_resource type="Texture2D" uid="uid://bte4dor4yfgor" path="res://assets/ui/shop/bg.png" id="2_5u85d"]
 
 [node name="Board" type="Control"]
 layout_mode = 3
@@ -13,11 +12,6 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 script = ExtResource("1_oevn7")
-
-[node name="Background" type="Sprite2D" parent="."]
-scale = Vector2(0.44453, 0.439076)
-texture = ExtResource("2_5u85d")
-centered = false
 
 [node name="Cards" type="GridContainer" parent="."]
 layout_mode = 1

@@ -24,7 +24,7 @@ func fill_extend(value):
 	current_points += value
 	fill(current_points)
 	pass
-	
+
 
 func take_hit(value):
 	current_points += value
@@ -42,6 +42,7 @@ func take_hit(value):
 func start_ghost():
 	$GhostTimer.start()
 	pass
+
 
 func _on_ghost_timer_timeout():
 	var ghost_star = self.duplicate()

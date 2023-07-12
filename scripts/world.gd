@@ -1,14 +1,17 @@
 extends Control
 
+@onready var WinSplash = preload("res://scenes/level_win_splash.tscn")
 @onready var Star = preload("res://scenes/star.tscn")
 @onready var stars = $HUD.stars
+
+const TIMER_SECONDS = 80
+const NUMBER_OF_CARDS = 12
 
 @onready var points = 0
 @onready var target_star = null
 @onready var current_star_idx = 0
-
-const TIMER_SECONDS = 80
-const NUMBER_OF_CARDS = 12
+@onready var pairs = NUMBER_OF_CARDS / 2
+@onready var current_pair = 0
 
 
 # Called when the node enters the scene tree for the first time.
@@ -19,6 +22,8 @@ func _ready():
 	
 	target_star = stars[current_star_idx]
 	points = target_star.max_points / NUMBER_OF_CARDS + 15
+	
+	$Timer.start()
 	pass
 
 
@@ -45,6 +50,10 @@ func _on_board_match_pairs():
 	flying_star($Board.second_card.face.global_position, target_star.position, 2)
 
 	$Board.reset_cards()
+	
+	current_pair += 1
+	if current_pair == pairs:
+		$Timer.start()
 	pass
 
 
@@ -74,4 +83,19 @@ func _star_fly_end():
 	var points_left = target_star.take_hit(points)
 	if points_left > 0 and current_star_idx < (stars.size() - 1):
 		stars[current_star_idx+1].fill_extend(points_left)
+	pass
+
+
+func _on_timer_timeout():
+	print("CONGRATULATIONS")
+	star_win_splash()
+	pass
+
+
+func star_win_splash():
+	var win_splash = WinSplash.instantiate()
+	win_splash.scale = Vector2(0,0)
+	win_splash.position = self.size / 2 - win_splash.pivot_offset
+	add_child(win_splash)
+	win_splash.start_appear_anim()
 	pass
