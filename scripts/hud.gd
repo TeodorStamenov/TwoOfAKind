@@ -1,6 +1,7 @@
 extends Control
 
-@onready var stars = [$Star1, $Star2, $Star3]
+@onready var stars = [$StarScn1, $StarScn2, $StarScn3]
+@onready var player_timer = $TimerScn
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -10,6 +11,3 @@ func _ready():
 	pass
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass

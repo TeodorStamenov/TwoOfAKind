@@ -12,14 +12,6 @@ signal flip_finish_signal
 @onready var flipAnimation = $Animations
 @onready var initial_material = $Back.material
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-	
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-
 func _on_touch_screen_button_pressed():
 	flipAnimation.play("flip")
 	pass

@@ -5,9 +5,6 @@ func _ready():
 	$Face.z_index = -1
 	pass # Replace with function body.
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
 
 func run_highlight_effect():
 #	%CardHighlightAnimation.play("card_highlight")

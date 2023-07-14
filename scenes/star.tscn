@@ -6,7 +6,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vlx1u"]
 size = Vector2(30, 45)
 
-[node name="Star" type="Area2D"]
+[node name="StarScn" type="Area2D"]
 collision_mask = 0
 script = ExtResource("1_in4ce")
 

@@ -1,5 +1,6 @@
 extends TextureRect
 
+var _stars = null
 
 func _ready():
 	pass
@@ -24,14 +25,26 @@ func drop_star(target_star):
 
 
 func fill_stars():
-	get_tree().create_timer(0.2).timeout.connect(drop_star.bind($Stars/Star1))
-	get_tree().create_timer(0.6).timeout.connect(drop_star.bind($Stars/Star2))
-	get_tree().create_timer(1.0).timeout.connect(drop_star.bind($Stars/Star3))
+	var delay = 0.2
+	var star_idx = 1
+	
+	for star in _stars:
+		if star.is_full():
+			var star_str = "Stars/Star" + str(star_idx)  
+			get_tree().create_timer(delay).timeout.connect(drop_star.bind(get_node(star_str)))
+			delay += 0.4
+			star_idx += 1
 	pass
 	
 
-func start_appear_anim():
+func show_anim(stars):
 	$Animations.play("FadeIn")
+	_stars = stars
+	pass
+	
+	
+func hide_anim():
+	$Animations.play("FadeOut")
 	pass
 	
 	

@@ -58,6 +58,10 @@ func _on_ghost_timer_timeout():
 	pass
 
 
-func _on_area_entered(area):
+func _on_area_entered():
 	$GhostTimer.stop()
 	pass
+
+
+func is_full():
+	return current_points == max_points

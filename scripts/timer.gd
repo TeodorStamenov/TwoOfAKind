@@ -20,8 +20,8 @@ func _on_timer_timeout():
 	time = time - 1
 	
 	if time <= 0:
-		emit_signal("time_elapsed")
 		$Timer.stop()
+		emit_signal("time_elapsed")
 	
 	_format_time()
 	pass

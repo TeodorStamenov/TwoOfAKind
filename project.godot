@@ -18,6 +18,8 @@ config/icon="res://icon.svg"
 [autoload]
 
 DampedOscillator="*res://addons/DampedOscillator/scripts/damped_oscillator.tscn"
+Globals="*res://scripts/globals.gd"
+Manager="*res://scripts/manger.gd"
 
 [display]
 

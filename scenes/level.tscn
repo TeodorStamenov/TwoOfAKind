@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://cp50hi2162n3i" path="res://assets/ui/level_select/level_holder_transperant.png" id="1_xghww"]
 [ext_resource type="Texture2D" uid="uid://b3ys4ynx7tgxa" path="res://assets/ui/logos/Level.png" id="2_ivh8w"]
 
-[node name="Level" type="Control"]
+[node name="LevelScn" type="Control"]
 layout_mode = 3
 anchor_right = 0.137153
 anchor_bottom = 0.0732422

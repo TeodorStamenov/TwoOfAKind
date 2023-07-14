@@ -2,33 +2,34 @@ extends Control
 
 @onready var WinSplash = preload("res://scenes/level_win_splash.tscn")
 @onready var Star = preload("res://scenes/star.tscn")
-@onready var stars = $HUD.stars
 
-const TIMER_SECONDS = 80
-const NUMBER_OF_CARDS = 12
+@onready var board = $BoardScn
+@onready var hud = $InfoPanelScn
+@onready var stars = hud.stars
+@onready var player_timer = hud.player_timer
 
 @onready var points = 0
 @onready var target_star = null
 @onready var current_star_idx = 0
-@onready var pairs = NUMBER_OF_CARDS / 2
+@onready var pairs = Globals.NUMBER_OF_CARDS / 2
 @onready var current_pair = 0
 
+var win_splash = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	$Board.match_pairs_signal.connect(_on_board_match_pairs)
-	$HUD/TimerScn.start_timer(TIMER_SECONDS)
-	$HUD/TimerScn.time_elapsed.connect(_on_timer_elapsed)
+	board.match_pairs_signal.connect(_on_board_match_pairs)
+	player_timer.start_timer(Globals.TIMER_SECONDS)
+	player_timer.time_elapsed.connect(_on_player_timer_elapsed)
 	
 	target_star = stars[current_star_idx]
-	points = target_star.max_points / NUMBER_OF_CARDS + 15
-	
-	$Timer.start()
+	points = target_star.max_points / Globals.NUMBER_OF_CARDS
 	pass
 
 
-func _on_timer_elapsed():
+func _on_player_timer_elapsed():
 	print("TIME ELAPSED")
+	#add game over splash
 	pass
 	
 	
@@ -43,21 +44,21 @@ func calculate_target_star():
 func _on_board_match_pairs():
 	calculate_target_star()
 	
-	$Board.start_cards_vanish()
-	$Board.start_cards_explosion()
+	board.start_cards_vanish()
+	board.start_cards_explosion()
 	
-	flying_star($Board.first_card.face.global_position, target_star.position, 1)
-	flying_star($Board.second_card.face.global_position, target_star.position, 2)
+	spawn_flying_star(board.first_card.face.global_position, target_star.position, 1)
+	spawn_flying_star(board.second_card.face.global_position, target_star.position, 2)
 
-	$Board.reset_cards()
+	board.reset_cards()
 	
 	current_pair += 1
 	if current_pair == pairs:
-		$Timer.start()
+		$DelaySplashTimer.start()
 	pass
 
 
-func flying_star(start_pos, end_pos, mask):
+func spawn_flying_star(start_pos, end_pos, mask):
 	var flying_star = Star.instantiate()
 	add_child(flying_star)
 	flying_star.set_collision_mask_value(mask, true)
@@ -88,14 +89,38 @@ func _star_fly_end():
 
 func _on_timer_timeout():
 	print("CONGRATULATIONS")
-	star_win_splash()
+	show_blur()
+	show_win_splash()
+	get_tree().create_timer(4).timeout.connect(next_level)
 	pass
 
 
-func star_win_splash():
-	var win_splash = WinSplash.instantiate()
+func next_level():
+	hide_win_splash()
+	hide_blur()
+	pass
+
+
+func show_blur():
+	$BlurEffect.visible = true
+	pass
+	
+
+func hide_blur():
+	$BlurEffect.visible = false
+	pass
+
+
+func show_win_splash():
+	win_splash = WinSplash.instantiate()
 	win_splash.scale = Vector2(0,0)
 	win_splash.position = self.size / 2 - win_splash.pivot_offset
+	win_splash.z_index = Globals.INDEX_ORDER_BLUR
 	add_child(win_splash)
-	win_splash.start_appear_anim()
+	win_splash.show_anim(stars)
+	pass
+
+
+func hide_win_splash():
+	win_splash.hide_anim()
 	pass

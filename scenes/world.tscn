@@ -1,11 +1,17 @@
-[gd_scene load_steps=5 format=3 uid="uid://7pfetbds0whd"]
+[gd_scene load_steps=7 format=3 uid="uid://chwq2nmduwwb2"]
 
 [ext_resource type="PackedScene" uid="uid://jewrbcxc5fcj" path="res://scenes/board.tscn" id="1_c056q"]
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_yxx5v"]
 [ext_resource type="Texture2D" uid="uid://ckcqek5jommw2" path="res://assets/ui/backgrounds/background_4.jpg" id="2_2sxxx"]
-[ext_resource type="PackedScene" uid="uid://c5ye16saujda4" path="res://scenes/hud.tscn" id="5_u0c6o"]
+[ext_resource type="Shader" path="res://shaders/blur_effect.gdshader" id="2_2ttcv"]
+[ext_resource type="PackedScene" uid="uid://c5ye16saujda4" path="res://scenes/info_panel.tscn" id="5_u0c6o"]
 
-[node name="World" type="Control"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1ckw8"]
+shader = ExtResource("2_2ttcv")
+shader_parameter/blur = 1.0
+shader_parameter/brightness = 0.5
+
+[node name="WorldScn" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -13,6 +19,15 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_yxx5v")
+
+[node name="BlurEffect" type="ColorRect" parent="."]
+visible = false
+z_index = 4
+material = SubResource("ShaderMaterial_1ckw8")
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+metadata/_edit_use_anchors_ = true
 
 [node name="Background" type="TextureRect" parent="."]
 layout_mode = 1
@@ -25,17 +40,17 @@ texture = ExtResource("2_2sxxx")
 expand_mode = 1
 metadata/_edit_use_anchors_ = true
 
-[node name="Board" parent="." instance=ExtResource("1_c056q")]
+[node name="BoardScn" parent="." instance=ExtResource("1_c056q")]
 layout_mode = 1
 anchor_top = 0.3125
 anchor_bottom = 0.687875
 metadata/_edit_use_anchors_ = true
 
-[node name="HUD" parent="." instance=ExtResource("5_u0c6o")]
+[node name="InfoPanelScn" parent="." instance=ExtResource("5_u0c6o")]
 layout_mode = 1
 
-[node name="Timer" type="Timer" parent="."]
+[node name="DelaySplashTimer" type="Timer" parent="."]
 wait_time = 2.0
 one_shot = true
 
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="DelaySplashTimer" to="." method="_on_timer_timeout"]

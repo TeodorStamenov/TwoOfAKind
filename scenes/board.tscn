@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/board.gd" id="1_oevn7"]
 
-[node name="Board" type="Control"]
+[node name="BoardScn" type="Control"]
 layout_mode = 3
 anchor_right = 1.002
 anchor_bottom = 0.391
