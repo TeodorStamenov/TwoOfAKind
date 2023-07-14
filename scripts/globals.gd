@@ -1,6 +1,6 @@
 extends Node
 
-const TIMER_SECONDS = 80
+const PLYER_TIMER_SECONDS = 80
 
 const NUMBER_OF_CARDS = 12
 

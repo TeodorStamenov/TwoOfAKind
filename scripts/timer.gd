@@ -9,6 +9,11 @@ func _ready():
 	pass
 
 
+func stop_timer():
+	$Timer.stop()
+	pass
+
+
 func start_timer(value):
 	time = value
 	_format_time()

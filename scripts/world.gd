@@ -4,9 +4,9 @@ extends Control
 @onready var Star = preload("res://scenes/star.tscn")
 
 @onready var board = $BoardScn
-@onready var hud = $InfoPanelScn
-@onready var stars = hud.stars
-@onready var player_timer = hud.player_timer
+@onready var info_panel = $InfoPanelScn
+@onready var stars = info_panel.stars
+@onready var player_timer = info_panel.player_timer
 
 @onready var points = 0
 @onready var target_star = null
@@ -19,17 +19,22 @@ var win_splash = null
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	board.match_pairs_signal.connect(_on_board_match_pairs)
-	player_timer.start_timer(Globals.TIMER_SECONDS)
+	player_timer.start_timer(Globals.PLYER_TIMER_SECONDS)
 	player_timer.time_elapsed.connect(_on_player_timer_elapsed)
-	
+	setup_stars()
+	pass
+
+
+func setup_stars():
+	current_pair = 0
+	current_star_idx = 0
 	target_star = stars[current_star_idx]
 	points = target_star.max_points / Globals.NUMBER_OF_CARDS
 	pass
 
-
+#add game over splash
 func _on_player_timer_elapsed():
 	print("TIME ELAPSED")
-	#add game over splash
 	pass
 	
 	
@@ -54,7 +59,7 @@ func _on_board_match_pairs():
 	
 	current_pair += 1
 	if current_pair == pairs:
-		$DelaySplashTimer.start()
+		$DelaySplash.start()
 	pass
 
 
@@ -64,31 +69,32 @@ func spawn_flying_star(start_pos, end_pos, mask):
 	flying_star.set_collision_mask_value(mask, true)
 	flying_star.z_index = 2
 	flying_star.global_position = start_pos
-	start_star_animation(flying_star, end_pos)
+	start_star_fly_animation(flying_star, end_pos)
 	pass
 
 
-func start_star_animation(star, end_pos):
+func start_star_fly_animation(star, end_pos):
 	var final_scale = star.scale
 	
 	var tween = create_tween()
 	tween.parallel().tween_property(star, "scale", Vector2(final_scale), 0.400).from(Vector2(0, 0))
 	tween.parallel().tween_property(star, "modulate", Color(1,1,1,1), 0.400).from(Color(1,1,1,0))
 	tween.chain().tween_callback(star.start_ghost)
-	tween.chain().tween_property(star, "position", end_pos, 0.800).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_IN).finished.connect(_star_fly_end)
+	tween.chain().tween_property(star, "position", end_pos, 0.800).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_IN).finished.connect(_on_star_fly_end)
 	tween.tween_callback(star.queue_free)
 	pass
 
 
-func _star_fly_end():
+func _on_star_fly_end():
 	var points_left = target_star.take_hit(points)
 	if points_left > 0 and current_star_idx < (stars.size() - 1):
 		stars[current_star_idx+1].fill_extend(points_left)
 	pass
 
 
-func _on_timer_timeout():
+func _on_delay_splash_timeout():
 	print("CONGRATULATIONS")
+	info_panel.stop_player_timer()
 	show_blur()
 	show_win_splash()
 	get_tree().create_timer(4).timeout.connect(next_level)
@@ -98,6 +104,9 @@ func _on_timer_timeout():
 func next_level():
 	hide_win_splash()
 	hide_blur()
+	setup_stars()
+	board.next_level()
+	info_panel.next_level()
 	pass
 
 

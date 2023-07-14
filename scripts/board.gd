@@ -7,7 +7,7 @@ var second_card = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	_setup_cards()
+	setup_cards()
 	pass
 
 
@@ -18,7 +18,20 @@ func _input(event):
 	pass
 
 
-func _setup_cards():
+func next_level():
+	reset_cards()
+	clear_cards()
+	setup_cards()
+	pass
+
+
+func clear_cards():
+	for child in $Cards.get_children():
+		child.queue_free()
+	pass
+
+
+func setup_cards():
 	var Card = preload("res://scenes/card.tscn")
 	var card_instance = Card.instantiate()
 	

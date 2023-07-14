@@ -16,7 +16,7 @@ func shake():
 
 func fill(value):
 	var tween_fill = create_tween()
-	tween_fill.tween_property($ForegroundCtrl, "size:x", value, 0.5).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_OUT)
+	tween_fill.tween_property(foreground, "size:x", value, 0.5).set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_OUT)
 	pass
 	
 
