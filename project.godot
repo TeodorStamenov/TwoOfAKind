@@ -19,6 +19,8 @@ config/icon="res://icon.svg"
 
 DampedOscillator="*res://addons/DampedOscillator/scripts/damped_oscillator.tscn"
 Globals="*res://scripts/globals.gd"
+LevelData="*res://scripts/data/level_data.gd"
+SaveGame="*res://scripts/save_game.gd"
 
 [display]
 

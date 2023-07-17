@@ -22,10 +22,10 @@ var target_star = null
 var win_splash = null
 	
 
-func setup(data: LevelData):
+func setup():
 	_setup()
 	_board.setup()
-	_info_panel.setup(data)
+	_info_panel.setup()
 	
 	_board.match_pairs_signal.connect(_on_board_match_pairs)
 	_info_panel.player_timer.time_elapsed.connect(_on_player_timer_elapsed)

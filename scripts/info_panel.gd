@@ -6,10 +6,10 @@ class_name InfoPanel
 @onready var level = $LevelScn as Level
 
 
-func setup(data: LevelData):
+func setup():
 	setup_stars()
-	_set_level(data.level)
-	_set_timer(data.time)
+	_set_level(LevelData.level)
+	_set_timer(LevelData.time)
 	pass
 
 

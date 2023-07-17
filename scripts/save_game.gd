@@ -1,18 +1,5 @@
 extends Node
-class_name SaveGame
 
-
-var _level_data : LevelData = null
-
-
-func set_level_data(data: LevelData):
-	_level_data = data
-	pass
-	
-	
-func get_level_data():
-	return _level_data
-	
 
 func load_savegame():
 	var file = FileAccess.open(Globals.SAVE_GAME_PATH, FileAccess.READ)
@@ -20,16 +7,13 @@ func load_savegame():
 		write_savegame()
 		return
 	
-	
 	var content := file.get_as_text()
 	file.close()
 	
 	var data: Dictionary = JSON.parse_string(content)
-	_level_data.level = data.level
-	_level_data.time = data.time
-	
-	return _level_data
-	
+	LevelData.level = data.level
+	LevelData.time = data.time
+	pass
 	
 func write_savegame():
 	var file = FileAccess.open(Globals.SAVE_GAME_PATH, FileAccess.WRITE)
@@ -38,11 +22,11 @@ func write_savegame():
 		return
 	
 	var data := {
-		"level": _level_data.level,
-		"time": _level_data.time
+		"level": LevelData.level,
+		"time": LevelData.time
 	}
 	
 	var json_string := JSON.stringify(data)
 	file.store_string(json_string)
 	file.close()
-	
+	pass
