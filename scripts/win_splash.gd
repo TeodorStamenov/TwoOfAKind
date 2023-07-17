@@ -1,9 +1,7 @@
 extends TextureRect
+class_name WinSplash
 
 var _stars = null
-
-func _ready():
-	pass
 	
 	
 func drop_star(target_star):

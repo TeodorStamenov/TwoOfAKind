@@ -1,13 +1,42 @@
 extends Control
+class_name Board
 
 signal match_pairs_signal
 
 var first_card = null
 var second_card = null
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	setup_cards()
+
+func setup():
+	reset_cards()
+	_clear_cards()
+	_setup_cards()
+	pass
+	
+
+func start_cards_vanish():
+	first_card.flipAnimation.play("vanish")
+	second_card.flipAnimation.play("vanish")
+	pass
+
+
+func start_cards_explosion():
+	first_card.start_explosion()
+	second_card.start_explosion()
+	pass
+
+
+func reset_cards():
+	first_card = null
+	second_card = null
+	pass
+
+
+func hide_cards():
+	if first_card != null:
+		first_card.flipAnimation.play("hide")
+	if second_card != null:
+		second_card.flipAnimation.play("hide")
 	pass
 
 
@@ -18,20 +47,13 @@ func _input(event):
 	pass
 
 
-func next_level():
-	reset_cards()
-	clear_cards()
-	setup_cards()
-	pass
-
-
-func clear_cards():
+func _clear_cards():
 	for child in $Cards.get_children():
 		child.queue_free()
 	pass
 
 
-func setup_cards():
+func _setup_cards():
 	var Card = preload("res://scenes/card.tscn")
 	var card_instance = Card.instantiate()
 	
@@ -72,30 +94,4 @@ func _on_hold_cards_open_timeout():
 	else:
 		hide_cards()
 		reset_cards()
-	pass
-
-
-func start_cards_vanish():
-	first_card.flipAnimation.play("vanish")
-	second_card.flipAnimation.play("vanish")
-	pass
-
-
-func start_cards_explosion():
-	first_card.start_explosion()
-	second_card.start_explosion()
-	pass
-
-
-func reset_cards():
-	first_card = null
-	second_card = null
-	pass
-
-
-func hide_cards():
-	if first_card != null:
-		first_card.flipAnimation.play("hide")
-	if second_card != null:
-		second_card.flipAnimation.play("hide")
 	pass

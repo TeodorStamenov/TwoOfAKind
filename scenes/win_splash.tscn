@@ -1,10 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://bnm0ryn62bf84"]
+[gd_scene load_steps=9 format=3 uid="uid://bdn255qocew5c"]
 
-[ext_resource type="Texture2D" uid="uid://bxhxh2246oebe" path="res://assets/ui/you_win/bg.png" id="1_ss3wr"]
-[ext_resource type="Script" path="res://scripts/level_win_splash.gd" id="2_u2e1m"]
-[ext_resource type="Texture2D" uid="uid://ba0l2ws4x85rj" path="res://assets/ui/you_win/table.png" id="2_wqjo0"]
-[ext_resource type="Texture2D" uid="uid://b3f17csxk0obb" path="res://assets/ui/you_win/header.png" id="3_c8ffo"]
-[ext_resource type="Texture2D" uid="uid://c6meayj4hp8eo" path="res://assets/ui/upgrade/star.png" id="4_hdxnb"]
+[ext_resource type="Texture2D" uid="uid://bxhxh2246oebe" path="res://assets/ui/you_win/bg.png" id="1_gnaqa"]
+[ext_resource type="Script" path="res://scripts/win_splash.gd" id="2_iwfvp"]
+[ext_resource type="Texture2D" uid="uid://ba0l2ws4x85rj" path="res://assets/ui/you_win/table.png" id="3_j2mfo"]
+[ext_resource type="Texture2D" uid="uid://c6meayj4hp8eo" path="res://assets/ui/upgrade/star.png" id="4_mlpog"]
+[ext_resource type="Texture2D" uid="uid://b3f17csxk0obb" path="res://assets/ui/you_win/header.png" id="5_pm7n1"]
 
 [sub_resource type="Animation" id="Animation_h2b00"]
 resource_name = "FadeIn"
@@ -44,7 +44,7 @@ _data = {
 "FadeOut": SubResource("Animation_m4gd8")
 }
 
-[node name="LevelWinSplash" type="TextureRect"]
+[node name="WinSplash" type="TextureRect"]
 anchors_preset = -1
 anchor_right = 0.258473
 anchor_bottom = 0.195312
@@ -52,10 +52,10 @@ scale = Vector2(1e-05, 1e-05)
 pivot_offset = Vector2(75, 100)
 size_flags_horizontal = 4
 size_flags_vertical = 4
-texture = ExtResource("1_ss3wr")
+texture = ExtResource("1_gnaqa")
 expand_mode = 3
 stretch_mode = 5
-script = ExtResource("2_u2e1m")
+script = ExtResource("2_iwfvp")
 metadata/_edit_use_anchors_ = true
 
 [node name="Table" type="TextureRect" parent="."]
@@ -65,7 +65,7 @@ anchor_left = 0.0268672
 anchor_top = 0.09
 anchor_right = 0.897432
 anchor_bottom = 0.74
-texture = ExtResource("2_wqjo0")
+texture = ExtResource("3_j2mfo")
 expand_mode = 3
 stretch_mode = 5
 metadata/_edit_use_anchors_ = true
@@ -86,7 +86,7 @@ anchor_top = 0.0666667
 anchor_right = 0.490385
 anchor_bottom = 0.955556
 pivot_offset = Vector2(25, 20)
-texture = ExtResource("4_hdxnb")
+texture = ExtResource("4_mlpog")
 expand_mode = 3
 stretch_mode = 5
 metadata/_edit_use_anchors_ = true
@@ -100,7 +100,7 @@ anchor_top = -0.0444444
 anchor_right = 0.740385
 anchor_bottom = 0.844444
 pivot_offset = Vector2(25, 20)
-texture = ExtResource("4_hdxnb")
+texture = ExtResource("4_mlpog")
 expand_mode = 3
 stretch_mode = 5
 metadata/_edit_use_anchors_ = true
@@ -114,7 +114,7 @@ anchor_top = 0.0666667
 anchor_right = 0.990385
 anchor_bottom = 0.955556
 pivot_offset = Vector2(25, 20)
-texture = ExtResource("4_hdxnb")
+texture = ExtResource("4_mlpog")
 expand_mode = 3
 stretch_mode = 5
 metadata/_edit_use_anchors_ = true
@@ -126,7 +126,7 @@ anchor_left = -0.0604512
 anchor_top = -0.09
 anchor_right = 1.01424
 anchor_bottom = 0.21
-texture = ExtResource("3_c8ffo")
+texture = ExtResource("5_pm7n1")
 expand_mode = 3
 stretch_mode = 5
 metadata/_edit_use_anchors_ = true

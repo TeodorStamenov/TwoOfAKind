@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://scripts/world.gd" id="1_yxx5v"]
 [ext_resource type="Texture2D" uid="uid://ckcqek5jommw2" path="res://assets/ui/backgrounds/background_4.jpg" id="2_2sxxx"]
 [ext_resource type="Shader" path="res://shaders/blur_effect.gdshader" id="2_2ttcv"]
-[ext_resource type="PackedScene" uid="uid://c5ye16saujda4" path="res://scenes/info_panel.tscn" id="5_u0c6o"]
+[ext_resource type="PackedScene" uid="uid://dx1ve162biraj" path="res://scenes/info_panel.tscn" id="5_u0c6o"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1ckw8"]
 shader = ExtResource("2_2ttcv")
@@ -49,8 +49,8 @@ metadata/_edit_use_anchors_ = true
 [node name="InfoPanelScn" parent="." instance=ExtResource("5_u0c6o")]
 layout_mode = 1
 
-[node name="DelaySplash" type="Timer" parent="."]
-wait_time = 2.0
+[node name="SplashTimer" type="Timer" parent="."]
+wait_time = 4.0
 one_shot = true
 
-[connection signal="timeout" from="DelaySplash" to="." method="_on_delay_splash_timeout"]
+[connection signal="timeout" from="SplashTimer" to="." method="_on_splash_timer_timeout"]

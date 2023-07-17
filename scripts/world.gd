@@ -1,79 +1,91 @@
 extends Control
+class_name World
 
-@onready var WinSplash = preload("res://scenes/level_win_splash.tscn")
+
+signal player_win
+signal player_loss
+signal splash_timeout
+
+@onready var WinSplash = preload("res://scenes/win_splash.tscn")
 @onready var Star = preload("res://scenes/star.tscn")
 
-@onready var board = $BoardScn
-@onready var info_panel = $InfoPanelScn
-@onready var stars = info_panel.stars
-@onready var player_timer = info_panel.player_timer
+@onready var _board = $BoardScn as Board
+@onready var _info_panel = $InfoPanelScn as InfoPanel
+@onready var _stars = _info_panel.stars
 
-@onready var points = 0
-@onready var target_star = null
-@onready var current_star_idx = 0
-@onready var pairs = Globals.NUMBER_OF_CARDS / 2
-@onready var current_pair = 0
+var pairs = Globals.NUMBER_OF_CARDS / 2
+var points = 0
+var current_star_idx = 0
+var current_pair = 0
 
+var target_star = null
 var win_splash = null
+	
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	board.match_pairs_signal.connect(_on_board_match_pairs)
-	player_timer.start_timer(Globals.PLYER_TIMER_SECONDS)
-	player_timer.time_elapsed.connect(_on_player_timer_elapsed)
-	setup_stars()
+func setup(data: LevelData):
+	_setup()
+	_board.setup()
+	_info_panel.setup(data)
+	
+	_board.match_pairs_signal.connect(_on_board_match_pairs)
+	_info_panel.player_timer.time_elapsed.connect(_on_player_timer_elapsed)
 	pass
 
 
-func setup_stars():
+func start_game():
+	_info_panel.start_player_timer()
+	pass
+
+
+func _setup():
 	current_pair = 0
 	current_star_idx = 0
-	target_star = stars[current_star_idx]
+	target_star = _stars[current_star_idx]
 	points = target_star.max_points / Globals.NUMBER_OF_CARDS
 	pass
 
-#add game over splash
+
 func _on_player_timer_elapsed():
-	print("TIME ELAPSED")
+	emit_signal("player_loss")
 	pass
 	
 	
-func calculate_target_star():
+func _calculate_target_star():
 	if target_star.current_points >= target_star.max_points:
 		current_star_idx += 1
-		if current_star_idx < stars.size():
-			target_star = stars[current_star_idx]
+		if current_star_idx < _stars.size():
+			target_star = _stars[current_star_idx]
 	pass
 
 
 func _on_board_match_pairs():
-	calculate_target_star()
+	_calculate_target_star()
 	
-	board.start_cards_vanish()
-	board.start_cards_explosion()
+	_board.start_cards_vanish()
+	_board.start_cards_explosion()
 	
-	spawn_flying_star(board.first_card.face.global_position, target_star.position, 1)
-	spawn_flying_star(board.second_card.face.global_position, target_star.position, 2)
+	_spawn_flying_star(_board.first_card.face.global_position, target_star.position, 1)
+	_spawn_flying_star(_board.second_card.face.global_position, target_star.position, 2)
 
-	board.reset_cards()
+	_board.reset_cards()
 	
 	current_pair += 1
 	if current_pair == pairs:
-		$DelaySplash.start()
+		get_tree().create_timer(2).timeout.connect(emit_signal.bind("player_win"))
 	pass
 
 
-func spawn_flying_star(start_pos, end_pos, mask):
+func _spawn_flying_star(start_pos, end_pos, mask):
 	var flying_star = Star.instantiate()
 	add_child(flying_star)
 	flying_star.set_collision_mask_value(mask, true)
 	flying_star.z_index = 2
 	flying_star.global_position = start_pos
-	start_star_fly_animation(flying_star, end_pos)
+	_start_star_fly_animation(flying_star, end_pos)
 	pass
 
 
-func start_star_fly_animation(star, end_pos):
+func _start_star_fly_animation(star, end_pos):
 	var final_scale = star.scale
 	
 	var tween = create_tween()
@@ -87,49 +99,56 @@ func start_star_fly_animation(star, end_pos):
 
 func _on_star_fly_end():
 	var points_left = target_star.take_hit(points)
-	if points_left > 0 and current_star_idx < (stars.size() - 1):
-		stars[current_star_idx+1].fill_extend(points_left)
+	if points_left > 0 and current_star_idx < (_stars.size() - 1):
+		_stars[current_star_idx+1].fill_extend(points_left)
 	pass
 
 
-func _on_delay_splash_timeout():
-	print("CONGRATULATIONS")
-	info_panel.stop_player_timer()
-	show_blur()
-	show_win_splash()
-	get_tree().create_timer(4).timeout.connect(next_level)
+func _on_splash_timer_timeout():
+	emit_signal("splash_timeout")
 	pass
 
 
 func next_level():
-	hide_win_splash()
-	hide_blur()
-	setup_stars()
-	board.next_level()
-	info_panel.next_level()
+	_info_panel.next_level()
 	pass
 
 
-func show_blur():
+func stop_player_timer():
+	_info_panel.stop_player_timer()
+	pass
+
+
+func blur_screen():
 	$BlurEffect.visible = true
 	pass
 	
 
-func hide_blur():
+func blur_screen_remove():
 	$BlurEffect.visible = false
 	pass
 
 
-func show_win_splash():
+func start_splash_timer():
+	$SplashTimer.start()
+	pass
+
+
+func win_splash_show():
 	win_splash = WinSplash.instantiate()
 	win_splash.scale = Vector2(0,0)
 	win_splash.position = self.size / 2 - win_splash.pivot_offset
 	win_splash.z_index = Globals.INDEX_ORDER_BLUR
 	add_child(win_splash)
-	win_splash.show_anim(stars)
+	win_splash.show_anim(_stars)
 	pass
 
 
-func hide_win_splash():
+func show_loss_splash():
+	#implement
+	pass
+
+
+func win_splash_hide():
 	win_splash.hide_anim()
 	pass

@@ -1,5 +1,5 @@
 extends Area2D
-
+class_name Star
 
 @onready var foreground = $ForegroundCtrl
 @onready var max_points = foreground.size.x

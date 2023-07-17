@@ -1,11 +1,13 @@
 extends Control
+class_name PlayerTimer
 
 signal time_elapsed
 
 @onready var time = 0
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
+
+func set_time(value: int):
+	time = value
 	pass
 
 
@@ -14,8 +16,7 @@ func stop_timer():
 	pass
 
 
-func start_timer(value):
-	time = value
+func start_timer():
 	_format_time()
 	$Timer.start()
 	pass
