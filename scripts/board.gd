@@ -84,7 +84,7 @@ func _on_card_flip_started(card):
 
 func _on_card_flip_finish():
 	if first_card != null and second_card != null:
-		$HoldCardsOpen.start()
+		$HoldCardsOpenTimer.start()
 	pass
 
 
